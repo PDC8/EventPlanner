@@ -1,0 +1,26 @@
+{{template "layout" .}}
+
+{{define "title"}}
+    {{.Title}}
+{{end}}
+
+{{define "content"}}
+    <h2>{{.Title}}</h2>
+    <p><strong>Location:</strong> {{.Location}}</p>
+    <p><strong>Date:</strong> {{.Date.Format "January 2, 2006 at 3:04 PM"}}</p>
+    <div>
+        <strong>Attendees:</strong>
+        <ul>
+            {{range .Attending}}
+                <li>{{.}}</li>
+            {{else}}
+                <li>No attendees yet.</li>
+            {{end}}
+        </ul>
+    </div>
+    {{if .Image}}
+        <div>
+            <img src="{{.Image}}" alt="{{.Title}}" style="max-width:300px; height:auto;">
+        </div>
+    {{end}}
+{{end}}
