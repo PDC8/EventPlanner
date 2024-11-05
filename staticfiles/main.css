@@ -20,3 +20,8 @@ img.som-shield {
 input {
     display: block;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
