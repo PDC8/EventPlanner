@@ -61,7 +61,7 @@ func createEventController(w http.ResponseWriter, r *http.Request) {
 		addEvent(newEvent)
 
 		// Redirect or render success page
-		http.Redirect(w, r, "/events", http.StatusSeeOther)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	} else {
 		// Render the form if the request is a GET request
 		tmpl["create"].Execute(w, nil)
