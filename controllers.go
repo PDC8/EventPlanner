@@ -86,24 +86,37 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 }
 
 func rsvpController(w http.ResponseWriter, r *http.Request) {
-    idStr := strings.TrimPrefix(r.URL.Path, "/events/")
-    id, err := strconv.Atoi(idStr)
-    if err != nil {
-        http.Error(w, "Invalid event ID", http.StatusBadRequest)
-        return
+	idStr := strings.TrimPrefix(r.URL.Path, "/events/")
+	if strings.HasSuffix(idStr, "/rsvp") {
+        idStr = strings.TrimSuffix(idStr, "/rsvp")
     }
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, "Invalid event ID", http.StatusBadRequest)
+		return
+	}
 
+    // Get the email from the form data
     email := r.FormValue("email")
     if email == "" {
         http.Error(w, "Email is required", http.StatusBadRequest)
         return
     }
 
+    // Add the attendee to the event
     err = addAttendee(id, email)
     if err != nil {
-        http.Error(w, err.Error(), http.StatusNotFound)
+        http.Error(w, "Event not found", http.StatusNotFound)
         return
     }
 
-    http.Redirect(w, r, "/events/"+idStr, http.StatusSeeOther)
+    // Retrieve the updated event data to show the latest attendee list
+    contextEvent, exists := getEventByID(id)
+    if !exists {
+        http.Error(w, "Event not found", http.StatusNotFound)
+        return
+    }
+
+    // Render the event page with updated data
+    tmpl["access"].Execute(w, contextEvent)
 }
