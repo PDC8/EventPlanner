@@ -84,3 +84,26 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 
 	tmpl["access"].Execute(w, contextEvent)
 }
+
+func rsvpController(w http.ResponseWriter, r *http.Request) {
+    idStr := strings.TrimPrefix(r.URL.Path, "/events/")
+    id, err := strconv.Atoi(idStr)
+    if err != nil {
+        http.Error(w, "Invalid event ID", http.StatusBadRequest)
+        return
+    }
+
+    email := r.FormValue("email")
+    if email == "" {
+        http.Error(w, "Email is required", http.StatusBadRequest)
+        return
+    }
+
+    err = addAttendee(id, email)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusNotFound)
+        return
+    }
+
+    http.Redirect(w, r, "/events/"+idStr, http.StatusSeeOther)
+}
