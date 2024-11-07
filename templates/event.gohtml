@@ -9,6 +9,16 @@
     <!-- <p> Image url test: {{.Image}}</p> --> 
     <p><strong>Location:</strong> {{.Location}}</p>
     <p><strong>Date:</strong> {{.Date.Format "January 2, 2006 at 3:04 PM"}}</p>
+
+    {{if .RSVPMessage}}
+<!--        
+        <div style="color: black; font-weight: bold; margin-bottom: 15px;"> {{.RSVPMessage}}</div>
+-->
+        <div>
+            <h3> {{.RSVPMessage}} </h3>
+        </div>
+    {{end}}
+
     <div>
         <strong>Attendees:</strong>
         <ul>
@@ -19,17 +29,32 @@
             {{end}}
         </ul>
     </div>
+
     {{if .Image}}
         <div>
             <img src="{{.Image}}" alt="{{.Title}}" style="max-width:300px; height:auto;">
         </div>
     {{end}}
 
+<!--
     <form action="/events/{{.ID}}/rsvp" method="POST" style="margin-top: 20px;">
         <label for="email">RSVP with your email:</label>
         <input type="email" id="email" name="email" required placeholder="Enter your email" style="margin: 5px; padding: 5px;">
         <button type="submit" style="padding: 5px 10px; font-size: 14px;">RSVP</button>
     </form>
+-->
+
+    <div>
+        <h3>RSVP to this event</h3>
+        <form id="rsvpForm" method="POST">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required  placeholder="Enter your email" style="margin: 5px; padding: 5px;">
+
+            <input type="hidden" name="eventID" value="{{.ID}}">
+            
+            <button type="submit" style="padding: 5px 10px; font-size: 14px;">RSVP</button>
+        </form>
+    </div>
 
     <button onclick="window.location.href='/'" style="padding: 10px 20px; font-size: 14px;">
     Back
