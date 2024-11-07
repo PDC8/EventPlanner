@@ -98,24 +98,34 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 		}
 
 		contextEvent.RSVPMessage = ""
-		for _, event := range contextEvent.Attending {
-			if event == email {
-				//http.Error(w, "Email is already RSVP-ed", http.StatusBadRequest)
-				contextEvent.RSVPMessage = "Email is already RSVP-ed"
-				tmpl["access"].Execute(w, contextEvent)
+		if !strings.HasSuffix(email, "@yale.edu") {
+			contextEvent.RSVPMessage = "Bad email. Yalies only"
+			//tmpl["access"].Execute(w, contextEvent)
+		}
+
+		if contextEvent.RSVPMessage == "" {
+			for _, event := range contextEvent.Attending {
+				if event == email {
+					//http.Error(w, "Email is already RSVP-ed", http.StatusBadRequest)
+					contextEvent.RSVPMessage = "Email is already RSVP-ed"
+					break
+					//tmpl["access"].Execute(w, contextEvent)
+				}
 			}
 		}
 
 		//addAttendee(id, email)
 		if contextEvent.RSVPMessage == "" {
-			err = addAttendee(id, email)
+			err = addAttendee(contextEvent.ID, email)
+			contextEvent.Attending = append(contextEvent.Attending, email)
 			if err != nil {
 				http.Error(w, "Event not found", http.StatusNotFound)
 				return
 			}
 			contextEvent.RSVPMessage = "Thank You for your RSVP!"
-			tmpl["access"].Execute(w, contextEvent)
 		}
+
+		tmpl["access"].Execute(w, contextEvent)
 
 		//http.Redirect(w, r, r.URL.Path, http.StatusFound)
 		// data := map[string]interface{}{
