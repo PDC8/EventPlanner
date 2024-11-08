@@ -13,6 +13,7 @@ func getEnv(key string, fallback string) string {
 }
 
 func main() {
+	defer db.Close()
 	r := createRoutes()
 	http.ListenAndServe(":"+getEnv("PORT", "8080"), r)
 }
