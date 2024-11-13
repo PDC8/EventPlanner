@@ -1,30 +1,23 @@
-<!DOCTYPE html>
-<html lang="en-US">
-    <head>
-    </head>
-    <body>
-        <header>
-        </header>
-        
-        <div>
-            <form action="/events/new" method="POST">
-                <label for="title">Event Title:</label>
-                <input type="text" id="title" name="title" required>
+{{template "layout" .}}
 
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" required>
+{{define "title"}}
+    New Event
+{{end}}
 
-                <label for="imageURL">Image URL:</label>
-                <input type="url" id="imageURL" name="imageURL">
+{{define "content"}}
+<form action="/events/new" method="POST">
+    <label for="title">Event Title:</label>
+    <input type="text" id="title" name="title" required>
 
-                <label for="date">Date of Event:</label>
-                <input type="date" id="date" name="date" required>
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
 
-                <button type="submit">Submit RSVP</button>
-            </form>
-        <div>
+    <label for="imageURL">Image URL:</label>
+    <input type="url" id="imageURL" name="imageURL">
 
-        <footer>        
-        </footer>
-    </body>
-</html>
+    <label for="date">Date of Event:</label>
+    <input type="date" id="date" name="date" required>
+
+    <button type="submit">Submit RSVP</button>
+</form>
+{{end}}
