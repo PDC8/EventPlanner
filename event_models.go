@@ -211,7 +211,7 @@ func init() {
 			{
 				ID:        1,
 				Title:     "SOM House Party",
-				Date:      time.Date(2024, 10, 17, 16, 30, 0, 0, newYorkTimeZone),
+				Date:      time.Date(2025, 10, 17, 16, 30, 0, 0, newYorkTimeZone),
 				Image:     "http://i.imgur.com/pXjrQ.gif",
 				Location:  "Kyle's house",
 				Attending: []string{"kyle.jensen@yale.edu", "kim.kardashian@yale.edu"},
@@ -219,7 +219,7 @@ func init() {
 			{
 				ID:        2,
 				Title:     "BBQ party for hackers and nerds",
-				Date:      time.Date(2024, 10, 19, 19, 0, 0, 0, newYorkTimeZone),
+				Date:      time.Date(2025, 10, 19, 19, 0, 0, 0, newYorkTimeZone),
 				Image:     "http://i.imgur.com/7pe2k.gif",
 				Location:  "Judy Chevalier's house",
 				Attending: []string{"kyle.jensen@yale.edu", "kim.kardashian@yale.edu"},
@@ -227,7 +227,7 @@ func init() {
 			{
 				ID:        3,
 				Title:     "BBQ for managers",
-				Date:      time.Date(2024, 12, 2, 18, 0, 0, 0, newYorkTimeZone),
+				Date:      time.Date(2025, 12, 2, 18, 0, 0, 0, newYorkTimeZone),
 				Image:     "http://i.imgur.com/CJLrRqh.gif",
 				Location:  "Barry Nalebuff's house",
 				Attending: []string{"kim.kardashian@yale.edu"},
@@ -240,7 +240,7 @@ func init() {
 			{
 				ID:        5,
 				Title:     "Cooking lessons for the busy business student",
-				Date:      time.Date(2024, 12, 21, 19, 0, 0, 0, newYorkTimeZone),
+				Date:      time.Date(2025, 12, 21, 19, 0, 0, 0, newYorkTimeZone),
 				Image:     "http://i.imgur.com/02KT9.gif",
 				Location:  "Yale Farm",
 				Attending: []string{"homer.simpson@yale.edu"},

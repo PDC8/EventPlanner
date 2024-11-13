@@ -187,3 +187,9 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 // 	// Render the event page with updated data
 // 	tmpl["access"].Execute(w, contextEvent)
 // }
+
+func aboutController(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		tmpl["about"].Execute(w, nil)
+	}
+}
