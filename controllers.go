@@ -105,8 +105,10 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 		}
 
 		contextEvent.RSVPMessage = ""
+		contextEvent.RSVPClass = ""
 		if !strings.HasSuffix(email, "@yale.edu") {
-			contextEvent.RSVPMessage = `<div class="error">Bad email. Yalies only</div>`
+			contextEvent.RSVPMessage = "Bad email. Yalies only" //`<div class="error">Bad email. Yalies only</div>`
+			contextEvent.RSVPClass = "error"
 			//tmpl["access"].Execute(w, contextEvent)
 		}
 
@@ -128,6 +130,7 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 				http.Error(w, "Event not found", http.StatusNotFound)
 				return
 			}
+
 			// Compute the SHA-1 hash
 			hasher := sha256.New()
 			hasher.Write([]byte(email))
@@ -138,6 +141,7 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 
 			// Print the first 7 characters of the hash
 			contextEvent.SHA256Hash = hashHex[:7]
+
 			contextEvent.RSVPMessage = "Thank You for your RSVP!"
 
 			contextEvent.Attending = append(contextEvent.Attending, email)
