@@ -19,6 +19,7 @@ type Event struct {
 	Date        time.Time `json:"date"`
 	Attending   []string  `json:"attending"`
 	RSVPMessage string    `json:"-"`
+	RSVPClass   string    `json:"-"`
 	SHA256Hash  string    `json:"-"`
 }
 
