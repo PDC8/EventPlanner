@@ -106,7 +106,7 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 
 		contextEvent.RSVPMessage = ""
 		if !strings.HasSuffix(email, "@yale.edu") {
-			contextEvent.RSVPMessage = "Bad email. Yalies only"
+			contextEvent.RSVPMessage = `<div class="error">Bad email. Yalies only</div>`
 			//tmpl["access"].Execute(w, contextEvent)
 		}
 
