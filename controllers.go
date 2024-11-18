@@ -42,7 +42,7 @@ func createEventController(w http.ResponseWriter, r *http.Request) {
 		// Extract form values
 		title := r.FormValue("title")
 		location := r.FormValue("location")
-		image := r.FormValue("imageURL")
+		image := r.FormValue("image")
 		dateStr := r.FormValue("date")
 
 		// Parse the date
