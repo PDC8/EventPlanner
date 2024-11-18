@@ -5,19 +5,22 @@
 {{end}}
 
 {{define "content"}}
-<form action="/events/new" method="POST">
-    <label for="title">Event Title:</label>
-    <input type="text" id="title" name="title" required>
+    {{if .ErrorMessage}}
+        <div class="error">{{.ErrorMessage}}</div>
+    {{end}}
+    <form action="/events/new" method="POST">
+        <label for="title">Event Title:</label>
+        <input type="text" id="title" name="title" required>
 
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" required>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
 
-    <label for="imageURL">Image URL:</label>
-    <input type="url" id="imageURL" name="image">
+        <label for="imageURL">Image URL:</label>
+        <input type="url" id="imageURL" name="image">
 
-    <label for="date">Date of Event:</label>
-    <input type="datetime-local" id="date" name="date" required>
+        <label for="date">Date of Event:</label>
+        <input type="datetime-local" id="date" name="date" required>
 
-    <button type="submit">Submit RSVP</button>
-</form>
+        <button type="submit">Submit RSVP</button>
+    </form>
 {{end}}

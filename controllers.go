@@ -4,12 +4,53 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/mail"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
 )
+
+func isValidURL(u string) bool {
+	parsedURL, err := url.Parse(u)
+	if err != nil {
+		return false
+	}
+	// Check if the URL has a scheme and host
+	return parsedURL.Scheme != "" && parsedURL.Host != ""
+}
+
+func isValidImageURL(filename string) bool {
+	extensions := []string{".png", ".jpg", ".jpeg", ".gif", ".gifv"}
+	for _, ext := range extensions {
+		if strings.HasSuffix(filename, ext) {
+			return isValidURL(filename)
+		}
+	}
+	return false
+}
+
+func isFutureDate(dateStr string) (bool, time.Time) {
+	// Parse the input string to a time.Time object (assuming the format is "2006-01-02" for date)
+	date, err := time.Parse("2006-01-02T15:04", dateStr)
+	if err != nil {
+		return false, date
+	}
+
+	// Get the current time
+	now := time.Now()
+	//return date.After(now), date
+
+	fiveHoursLater := now.Add(5 * time.Hour)
+	fmt.Println("Given time:", date)
+	fmt.Println("Current time:", now)
+	fmt.Println("Five hours later:", fiveHoursLater)
+
+	// // Check if the parsed date is at least 5 hours in the future
+	return fiveHoursLater.Before(date), date
+}
 
 func indexController(w http.ResponseWriter, r *http.Request) {
 
@@ -40,10 +81,25 @@ func createEventController(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		// Error message
+
+		data := EventError{
+			ErrorMessage: "",
+		}
+
 		// Extract form values
 		title := r.FormValue("title")
+		if len(title) < 6 || len(title) > 49 {
+			data.ErrorMessage += "Bad Title!"
+		}
 		location := r.FormValue("location")
+		if len(location) < 6 || len(location) > 49 {
+			data.ErrorMessage += " Bad Location!"
+		}
 		image := r.FormValue("image")
+		if !isValidImageURL(image) {
+			data.ErrorMessage += " Bad URL!"
+		}
 		dateStr := r.FormValue("date")
 
 		// Parse the date
@@ -52,10 +108,13 @@ func createEventController(w http.ResponseWriter, r *http.Request) {
 		// 	http.Error(w, "Invalid date format. Please use YYYY-MM-DD.", http.StatusBadRequest)
 		// 	return
 		// }
-		date, err := time.Parse("2006-01-02T15:04", dateStr)
-		if err != nil {
-			http.Error(w, "Invalid date-time format. Please use YYYY-MM-DDTHH:MM.", http.StatusBadRequest)
-			return
+		//date, err := time.Parse("2006-01-02T15:04", dateStr)
+		err, date := isFutureDate(dateStr)
+		if !err {
+			// http.Error(w, "Invalid date-time format. Please use YYYY-MM-DDTHH:MM.", http.StatusBadRequest)
+			// return
+			data.ErrorMessage += " Bad Date!"
+			//data.ErrorMessage += dateStr
 		}
 
 		// Create new event
@@ -65,12 +124,16 @@ func createEventController(w http.ResponseWriter, r *http.Request) {
 			Image:    image,
 			Date:     date,
 		}
+		if data.ErrorMessage == "" {
+			// Add the event to the list of all events
+			addEvent(newEvent)
 
-		// Add the event to the list of all events
-		addEvent(newEvent)
+			// Redirect or render success page
+			http.Redirect(w, r, "/events/"+strconv.Itoa(getMaxEventID()), http.StatusSeeOther)
+		} else {
+			tmpl["create"].Execute(w, data)
+		}
 
-		// Redirect or render success page
-		http.Redirect(w, r, "/events/"+strconv.Itoa(getMaxEventID()), http.StatusSeeOther)
 	} else {
 		// Render the form if the request is a GET request
 		tmpl["create"].Execute(w, nil)

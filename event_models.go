@@ -22,6 +22,9 @@ type Event struct {
 	RSVPClass   string    `json:"-"`
 	SHA256Hash  string    `json:"-"`
 }
+type EventError struct {
+	ErrorMessage string `json:"-"`
+}
 
 // getEventByID - returns the event in `allEvents` that has
 // the specified id and a boolean indicating whether or not
