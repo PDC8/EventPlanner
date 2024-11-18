@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"net/http"
 	"net/mail"
 	"strconv"
@@ -220,4 +221,42 @@ func donateController(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		tmpl["donate"].Execute(w, nil)
 	}
+}
+
+func apiController(w http.ResponseWriter, r *http.Request) {
+	// Capture the event ID from the URL path
+	idStr := strings.TrimPrefix(r.URL.Path, "/api/events")
+	if idStr != "" {
+		// Convert the event ID to an integer
+		eventID, err := strconv.Atoi(strings.TrimPrefix(idStr, "/"))
+		if err != nil {
+			http.Error(w, "Invalid event ID", http.StatusBadRequest)
+			return
+		}
+
+		// Fetch the specific event
+		event, found := getEventByID(eventID)
+		if !found {
+			http.Error(w, "Event not found", http.StatusNotFound)
+			return
+		}
+
+		// Respond with JSON for the specific event
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(event)
+		return
+	}
+
+	// If no event ID is provided, return all events
+	events, err := getAllEvents()
+	if err != nil {
+		http.Error(w, "Error retrieving events: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with JSON for all events
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"events": events,
+	})
 }

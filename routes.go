@@ -25,5 +25,9 @@ func createRoutes() chi.Router {
 	r.Get("/events/{id}/donate", donateController)
 
 	r.Get("/about", aboutController)
+
+	r.Get("/api/events", apiController)
+	r.Get("/api/events/{id}", apiController)
+
 	return r
 }
