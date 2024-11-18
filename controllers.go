@@ -4,7 +4,6 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/mail"
 	"net/url"
@@ -41,15 +40,15 @@ func isFutureDate(dateStr string) (bool, time.Time) {
 
 	// Get the current time
 	now := time.Now()
-	//return date.After(now), date
+	return date.After(now), date
 
-	fiveHoursLater := now.Add(5 * time.Hour)
-	fmt.Println("Given time:", date)
-	fmt.Println("Current time:", now)
-	fmt.Println("Five hours later:", fiveHoursLater)
+	// fiveHoursLater := now.Add(5 * time.Hour)
+	// fmt.Println("Given time:", date)
+	// fmt.Println("Current time:", now)
+	// fmt.Println("Five hours later:", fiveHoursLater)
 
-	// // Check if the parsed date is at least 5 hours in the future
-	return fiveHoursLater.Before(date), date
+	// // // Check if the parsed date is at least 5 hours in the future
+	// return fiveHoursLater.Before(date), date
 }
 
 func indexController(w http.ResponseWriter, r *http.Request) {
