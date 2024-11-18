@@ -10,6 +10,15 @@
     <p><strong>Location:</strong> {{.Location}}</p>
     <p><strong>Date:</strong> {{.Date.Format "January 2, 2006 at 3:04 PM"}}</p>
 
+    {{if .SHA256Hash}}
+<!--        
+        <div style="color: black; font-weight: bold; margin-bottom: 15px;"> {{.SHA256Hash}}</div>
+-->
+        <div>
+            <h3> Your confirmation code: {{.SHA256Hash}} </h3>
+        </div>
+    {{end}}
+
     {{if .RSVPMessage}}
 <!--        
         <div style="color: black; font-weight: bold; margin-bottom: 15px;"> {{.RSVPMessage}}</div>

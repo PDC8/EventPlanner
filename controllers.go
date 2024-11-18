@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"net/http"
 	"net/mail"
 	"strconv"
@@ -117,12 +119,23 @@ func accessEventController(w http.ResponseWriter, r *http.Request) {
 		//addAttendee(id, email)
 		if contextEvent.RSVPMessage == "" {
 			err = addAttendee(contextEvent.ID, email)
-			contextEvent.Attending = append(contextEvent.Attending, email)
 			if err != nil {
 				http.Error(w, "Event not found", http.StatusNotFound)
 				return
 			}
+			// Compute the SHA-1 hash
+			hasher := sha256.New()
+			hasher.Write([]byte(email))
+			hash := hasher.Sum(nil)
+
+			// Convert the hash to a hexadecimal string
+			hashHex := hex.EncodeToString(hash)
+
+			// Print the first 7 characters of the hash
+			contextEvent.SHA256Hash = hashHex[:7]
 			contextEvent.RSVPMessage = "Thank You for your RSVP!"
+
+			contextEvent.Attending = append(contextEvent.Attending, email)
 		}
 
 		tmpl["access"].Execute(w, contextEvent)

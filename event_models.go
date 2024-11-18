@@ -19,6 +19,7 @@ type Event struct {
 	Date        time.Time `json:"date"`
 	Attending   []string  `json:"attending"`
 	RSVPMessage string    `json:"-"`
+	SHA256Hash  string    `json:"-"`
 }
 
 // getEventByID - returns the event in `allEvents` that has
