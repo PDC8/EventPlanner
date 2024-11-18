@@ -46,9 +46,14 @@ func createEventController(w http.ResponseWriter, r *http.Request) {
 		dateStr := r.FormValue("date")
 
 		// Parse the date
-		date, err := time.Parse("2006-01-02", dateStr)
+		// date, err := time.Parse("2006-01-02", dateStr)
+		// if err != nil {
+		// 	http.Error(w, "Invalid date format. Please use YYYY-MM-DD.", http.StatusBadRequest)
+		// 	return
+		// }
+		date, err := time.Parse("2006-01-02T15:04", dateStr)
 		if err != nil {
-			http.Error(w, "Invalid date format. Please use YYYY-MM-DD.", http.StatusBadRequest)
+			http.Error(w, "Invalid date-time format. Please use YYYY-MM-DDTHH:MM.", http.StatusBadRequest)
 			return
 		}
 
