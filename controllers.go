@@ -211,3 +211,9 @@ func aboutController(w http.ResponseWriter, r *http.Request) {
 		tmpl["about"].Execute(w, nil)
 	}
 }
+
+func donateController(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		tmpl["donate"].Execute(w, nil)
+	}
+}

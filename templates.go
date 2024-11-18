@@ -13,4 +13,5 @@ func init() {
 	tmpl["create"] = m(p("templates/create.gohtml", "templates/layout.gohtml"))
 	tmpl["access"] = m(p("templates/event.gohtml", "templates/layout.gohtml"))
 	tmpl["about"] = m(p("templates/about.gohtml", "templates/layout.gohtml"))
+	tmpl["donate"] = m(p("templates/donate.gohtml", "templates/layout.gohtml"))
 }
