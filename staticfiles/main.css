@@ -1,20 +1,115 @@
+
+/* Make the footer stick to the bottom */
+html, body {
+    height: 100%;
+}
+
 body {
-    max-width: 800px;
-    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
 }
 
-header {
-    background-color: #8ac5c3;
+p, li {
+    margin-bottom: 20px;
 }
 
+.navbar {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    background-color: #f9f9f9;
+}
+
+
+.content{
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    font-size: 2rem;
+}
+
+.hero-banner {
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.hero-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.hero-content {
+    position: absolute;
+    top: 75%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    color: white;
+    background-color: rgba(0, 30, 60, 0.8);
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.date-font {
+    font-size: 3.5rem; 
+}
+
+.btn {
+    padding: 15px 20px;
+    font-size: 2rem;
+    border-radius: 30px;
+    background-color: #00356b;
+}
+
+.rsvp {
+    width: 100vw;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.content .team-title {
+    margin-top: 20px;
+}
+
+.content .donate {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+}
+
+.content .team-member {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    max-width: 350px;
+}
+
+
+button {
+    margin-top: 30px;
+    background-color: #00356b;
+    color: white;
+}
 
 footer {
-    background-color: #edece8;
+    margin-top: auto; /* Push the footer to the bottom */
+    background-color: #00356b;
+    color: white;
+    height: auto;
+    padding-top: 25px;
 }
-
-img.som-shield {
-    height: 2em;
-    display: block;
+footer a {
+    color: white;
+}
+footer a:hover {
+    color: #cccccc; /* Optional: Light gray on hover */
 }
 
 input {
@@ -25,3 +120,5 @@ form {
     display: flex;
     flex-direction: column;
 }
+
+

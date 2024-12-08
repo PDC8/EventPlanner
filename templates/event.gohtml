@@ -4,26 +4,24 @@
     {{.Title}}
 {{end}}
 
-{{define "content"}}
+{{define "content"}}    
+
+
     <h1>{{.Title}}</h1>
-    <a href="/events/{{.ID}}/donate"> Donate PLZZZZ </a>
+    <a href="/events/{{.ID}}/donate" style="margin: 20px;"> DONATE TO US PLSSS </a>
     <!-- <p> Image url test: {{.Image}}</p> --> 
+    
     <p><strong>Location:</strong> {{.Location}}</p>
     <p><strong>Date:</strong> {{.Date.Format "January 2, 2006 at 3:04 PM"}}</p>
 
     {{if .SHA256Hash}}
-<!--        
-        <div style="color: black; font-weight: bold; margin-bottom: 15px;"> {{.SHA256Hash}}</div>
--->
         <div>
             <h3> Your confirmation code: {{.SHA256Hash}} </h3>
         </div>
     {{end}}
 
     {{if .RSVPMessage}}
-<!--        
-        <div style="color: black; font-weight: bold; margin-bottom: 15px;"> {{.RSVPMessage}}</div>
--->
+    
         <div class="{{if .RSVPClass}}{{.RSVPClass}}{{else}}default-class{{end}}">
             <h3> {{.RSVPMessage}} </h3>
         </div>
@@ -42,17 +40,9 @@
 
     {{if .Image}}
         <div>
-            <img src="{{.Image}}" alt="{{.Title}}" style="max-width:300px; height:auto;">
+            <img src="{{.Image}}" alt="{{.Title}}" style="max-width:600px; height:auto;">
         </div>
     {{end}}
-
-<!--
-    <form action="/events/{{.ID}}/rsvp" method="POST" style="margin-top: 20px;">
-        <label for="email">RSVP with your email:</label>
-        <input type="email" id="email" name="email" required placeholder="Enter your email" style="margin: 5px; padding: 5px;">
-        <button type="submit" style="padding: 5px 10px; font-size: 14px;">RSVP</button>
-    </form>
--->
 
     <div>
         <h3>RSVP to this event</h3>

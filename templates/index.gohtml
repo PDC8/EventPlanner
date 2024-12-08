@@ -5,12 +5,19 @@
 {{end}}
 
 {{define "content"}}
-<h1 class="title">EventRight the Better EventBrite</h1>
+
+<div class="hero-banner">
+    <img src="/static/herobanner.jpg" alt="Hero Image">
+    <div class="hero-content">
+        <h1 class="title" id="Title">EventRight <br></h1>
+		<h1>&nbsp;&nbsp;&nbsp;&nbsp;The Better EventBrite</h1>
+    </div>
+</div>
+
+
+<p class="date-font">Today is {{.Today.Format "Jan 02, 2006"}}!</p>
 <p>
-	Hi, today is {{.Today.Format "Jan 02, 2006"}}
-</p>
-<p>
-	<a href="/events/new">Create</a> a new event.
+	<a href="/events/new" class="btn btn-primary">Create a new event</a>
 </p>
 <ul>
 	{{range .Events}}

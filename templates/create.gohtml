@@ -5,6 +5,11 @@
 {{end}}
 
 {{define "content"}}
+
+    <div class="rsvp">
+       <h1> RSVP </h1>
+    </div>
+
     {{if .ErrorMessage}}
         <div class="error">{{.ErrorMessage}}</div>
     {{end}}
@@ -21,6 +26,6 @@
         <label for="date">Date of Event:</label>
         <input type="datetime-local" id="date" name="date" required>
 
-        <button type="submit">Submit RSVP</button>
+        <button type="submit">Create Event</button>
     </form>
 {{end}}
