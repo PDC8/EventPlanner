@@ -1,6 +1,6 @@
 # EventRight
 
-Created a simple Eventbrite clone using Go as the backend, SQLite as the database, and HTML, CSS, and JavaScript as the frontend.
+Created a simple Eventbrite clone using Go as the backend, SQLite as the database, and HTML, CSS, and JavaScript as the frontend. Implemented data tracking via Google Analytics.
 
 Developed using Agile/Scrum principles learned in class.
 
